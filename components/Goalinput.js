@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, Button, View } from "react-native";
+import { StyleSheet, TextInput, Button, View, Modal } from "react-native";
 import uuid from "react-native-uuid";
 
-const Goalinput = ({ addGoal }) => {
+const Goalinput = ({ addGoal, visable, endAddGoalHandler }) => {
   const [enteredGoalText, setEnteredGoalText] = useState("");
 
   const goalInputHandler = (enteredText) => {
@@ -15,15 +15,35 @@ const Goalinput = ({ addGoal }) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder='Your goal'
-        style={styles.textInput}
-        onChangeText={goalInputHandler}
-        value={enteredGoalText.text}
-      />
-      <Button title='Add goal' onPress={addGoalHandler} />
-    </View>
+    <Modal visible={visable} animationType='slide'>
+      <View style={styles.inputContainer}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginBottom: 20,
+          }}
+        >
+          <TextInput
+            placeholder='Your goal'
+            style={styles.textInput}
+            onChangeText={goalInputHandler}
+            value={enteredGoalText.text}
+          />
+        </View>
+        <View style={styles.btnContainer}>
+          <Button
+            style={styles.btn}
+            title='Add goal'
+            onPress={addGoalHandler}
+          />
+          <Button
+            style={styles.btn}
+            title='Cancel'
+            onPress={endAddGoalHandler}
+          ></Button>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -32,9 +52,9 @@ export default Goalinput;
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
+    margin: 16,
     marginBottom: 24,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
@@ -46,5 +66,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#ccc",
     backgroundColor: "yellow",
+  },
+  btnContainer: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  btn: {
+    marginRight: 100,
   },
 });
