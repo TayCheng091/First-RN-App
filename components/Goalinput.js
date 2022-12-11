@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, Button, View, Modal } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  Button,
+  View,
+  Modal,
+  Image,
+} from "react-native";
 import uuid from "react-native-uuid";
 
 const Goalinput = ({ addGoal, visable, endAddGoalHandler }) => {
@@ -17,6 +24,10 @@ const Goalinput = ({ addGoal, visable, endAddGoalHandler }) => {
   return (
     <Modal visible={visable} animationType='slide'>
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require("../assets/Images/goal.png")}
+        />
         <View
           style={{
             flexDirection: "row",
@@ -32,15 +43,15 @@ const Goalinput = ({ addGoal, visable, endAddGoalHandler }) => {
         </View>
         <View style={styles.btnContainer}>
           <Button
-            style={styles.btn}
+            color={styles.btn.color}
             title='Add goal'
             onPress={addGoalHandler}
           />
           <Button
-            style={styles.btn}
+            color={styles.cancelBtn.color}
             title='Cancel'
             onPress={endAddGoalHandler}
-          ></Button>
+          />
         </View>
       </View>
     </Modal>
@@ -54,17 +65,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: 16,
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    padding: 16,
+    backgroundColor: "#A5D8FF",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
   textInput: {
     flex: 1,
     marginRight: 8,
     padding: 8,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: "#aaa",
+    borderRadius: 8,
     backgroundColor: "yellow",
   },
   btnContainer: {
@@ -73,6 +88,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   btn: {
-    marginRight: 100,
+    color: "#3943B7",
+  },
+  cancelBtn: {
+    color: "#D74E09",
   },
 });

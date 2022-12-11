@@ -6,9 +6,10 @@ import GoalItem from "./components/GoalItem";
 import Goalinput from "./components/Goalinput";
 
 export default function App() {
+  console.log("App is starting !!!!");
+
   const [courseGoals, setCourseGoals] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
-
   const addGoalHandler = (enteredGoal) => {
     if (!enteredGoal) return;
     enteredGoal.text = enteredGoal.text.trim();
@@ -35,29 +36,32 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <View>
-        <Button title='Add goal now !' onPress={setModalVisible}></Button>
+    <>
+      <StatusBar />
+      <View style={styles.appContainer}>
+        <View>
+          <Button title='Add goal now !' onPress={setModalVisible}></Button>
+        </View>
+        <Goalinput
+          addGoal={addGoalHandler}
+          endAddGoalHandler={setModalInvisible}
+          visable={modalIsVisible}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  curGoal={itemData.item}
+                  deleteGoalHandler={deleteGoalHandler}
+                />
+              );
+            }}
+          ></FlatList>
+        </View>
       </View>
-      <Goalinput
-        addGoal={addGoalHandler}
-        endAddGoalHandler={setModalInvisible}
-        visable={modalIsVisible}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                curGoal={itemData.item}
-                deleteGoalHandler={deleteGoalHandler}
-              />
-            );
-          }}
-        ></FlatList>
-      </View>
-    </View>
+    </>
   );
 }
 
